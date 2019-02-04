@@ -1,0 +1,27 @@
+<?php
+$message = $this->get_message();
+?>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Licensing system</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
+	</head>
+	<body>
+		<nav class="navbar navbar-expand navbar-dark bg-dark">
+			<div class="container">
+				<a href="<?php echo htmlspecialchars( $this->link( 'customers', 'index' ) ); ?>"><span class="navbar-brand">Licensing system</span></a>
+				<?php if ( $this->is_authenticated() ) { ?>
+				<small class="text-light">Welcome <?php echo htmlspecialchars( $this->get_session_data( 'name' ) ); ?></small>
+				<a class="btn btn-light" href="<?php echo htmlspecialchars( $this->link( 'customers', 'logout' ) ); ?>">Logout</a>
+				<?php } ?>
+			</div><!-- /.container -->
+		</nav>
+		<div class="container mt-3">
+			<?php
+				if ( $message ) {
+					$message->render();
+				}
+			?>

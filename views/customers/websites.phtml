@@ -1,0 +1,23 @@
+<?php
+$this->websites = $this->get_session_data( 'websites' );
+
+if ( empty( $this->websites ) ) {
+	?>
+<em>No websites yet.</em>
+	<?php
+} else {
+	?>
+<ul>
+	<?php foreach ( $this->websites as $website ) { ?>
+	<li><a href="<?php echo htmlspecialchars( $website ); ?>" target="_blank"><?php echo htmlspecialchars( $website ); ?></a></li>
+	<?php } ?>
+</ul>
+	<?php
+}
+?>
+<form action="<?php echo htmlspecialchars( $this->link( 'customers', 'add_website' ) ); ?>" method="post">
+	<div class="form-group">
+		<input class="form-control" type="url" name="website" required autofocus value="<?php echo htmlspecialchars( $this->get_post_parameter( 'website' ) ); ?>" />
+	</div>
+	<button type="submit" class="btn btn-primary">Add website</button>
+</form>

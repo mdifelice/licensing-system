@@ -1,1 +1,20 @@
-[]
+[
+	{
+		"id" : 1,
+		"name" : "Single",
+		"price" : "49",
+		"sites" : "1"
+	},
+	{
+		"id" : 2,
+		"name" : "Plus",
+		"price" : "99",
+		"sites" : "3"
+	},
+	{
+		"id" : 3,
+		"name" : "Infinite",
+		"price" : "199",
+		"sites" : "0"
+	}
+]

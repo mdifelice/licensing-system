@@ -1,34 +1,45 @@
 <?php
-$controller = null;
-$method     = 'index';
+function call_action( $section, $action, $id, $error = null ) {
+	$response  = null;
+	$base_name = strtolower( $section ) . '-controller';
+	$file      = __DIR__ . '/controllers/class-' . $base_name . '.php';
 
-if ( isset( $_GET['controller'] ) ) {
-	$possible_controller = $_GET['controller'];
-} else {
+	try {
+		if ( ! is_file( $file ) ) {
+			throw new Exception( 'Invalid section.' );
+		}
+
+		require_once $file;
+
+		$class  = str_replace( ' ', '_', ucwords( str_replace( '-', ' ', $base_name ) ) );
+		$method = str_replace( '-', '_', strtolower( $action ) );
+
+		$controller = call_user_func( array( $class, 'load' ) );
+
+		if ( ! method_exists( $controller, $method ) ) {
+			throw new Exception( 'Invalid action.' );
+		}
+
+		call_user_func( array( $controller, $method ), $id );
+	} catch ( Exception $e ) {
+		call_action( 'customers', 'index', $e->getMessage() );
+	}
 }
 
-if ( isset( $_GET['method'] ) ) {
-	$method = $_GET['method'];
-} else {
+$section = null;
+$action  = null;
+$id      = null;
+
+if ( isset( $_GET['section'] ) ) {
+	$section = $_GET['section'];
 }
-?>
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<title>Licensing system</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
-	</head>
-	<body>
-		<nav class="navbar navbar-expand navbar-dark bg-dark">
-			<div class="container">
-				<span class="navbar-brand">Licensing system</span>
-			</div><!-- /.container -->
-		</nav>
-		<div class="container mt-3">
-			<a href="?controller=licenses" class="btn btn-primary btn-block">Licenses</a>
-			<a href="?controller=customers" class="btn btn-primary btn-block">Customers</a>
-		</div><!-- /.container.mt-3 -->
-	</body>
-</html>
+
+if ( isset( $_GET['action'] ) ) {
+	$action = $_GET['action'];
+}
+
+if ( isset( $_GET['id'] ) ) {
+	$id = $_GET['id'];
+}
+
+call_action( $section, $action, $id );

@@ -1,0 +1,3 @@
+<?php foreach ( $this->licenses as $license ) { ?>
+<a class="btn btn-block <?php echo $this->is_license_enabled( $license->id ) ? 'btn-primary' : 'disabled'; ?>" href="<?php echo htmlspecialchars( $this->link( 'customers', 'buy_license', null, null, $license->id ) ); ?>"><?php echo htmlspecialchars( $license->name ); ?></a>
+<?php } ?>

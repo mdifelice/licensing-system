@@ -1,0 +1,10 @@
+<form method="post" action="<?php echo htmlspecialchars( $this->link( 'customers', 'login' ) ); ?>">
+	<h2>Please, sign in</h2>
+	<div class="form-group">
+		<input class="form-control" type="email" placeholder="Email address" required autofocus name="email" value="<?php echo htmlspecialchars( $this->get_post_parameter( 'email' ) ); ?>" />
+	</div>
+	<div class="form-group">
+			<input class="form-control" type="password" placeholder="Password" required name="password" value="<?php echo htmlspecialchars( $this->get_post_parameter( 'password' ) ); ?>" />
+	</div>
+	<button class="btn btn-primary" type="submit">Sign In</button>
+</form>
