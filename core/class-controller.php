@@ -109,14 +109,12 @@ abstract class Controller {
 	protected function redirect( $section = null, $action = null, $message_text = null, $message_type = null, $id = null ) {
 		$url = $this->link( $section, $action, $message_text, $message_type, $id );
 
-		header(
+		@header(
 			sprintf(
 				'Location: %s',
 				$url
 			)
 		);
-
-		exit;
 	}
 
 	protected function link( $section = null, $action = null, $message_text = null, $message_type = null, $id = null ) {
